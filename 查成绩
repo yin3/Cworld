@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <malloc.h>
+#include <string.h>
+typedef struct stu{
+  char name[10];
+  int sc;
+  struct stu*next;
+}NODE;
+
+
+NODE* creat (NODE*h,int n)
+{
+  int i;
+  int f=0;
+  NODE*p,*q;
+  h=(NODE*)malloc(sizeof(struct stu));
+  p=q=h;
+  h->next=NULL;
+  for(i=0;i<n;i++)
+ {
+  scanf("%s%d",p->name,&p->sc);
+  p=(NODE*)malloc(sizeof(struct stu));
+  q->next=p;
+  q=p;
+  }
+ q->next=NULL;
+ return h;
+}
+
+void chazhao(NODE *h,char*s)
+{
+ NODE*p;
+ p=h;
+ int f=0;
+for(;p!=NULL;p=p->next)
+{
+  if(strcmp(p->name,s)==0)
+    {
+      printf("%s的成绩是%d",p->name,p->sc);
+      f=1;
+    }
+}
+if(!f)
+  printf("查无此人");
+}
+
+
+int main(){
+  NODE* head=NULL;
+  int n;//学生人数
+  scanf("%d",&n);
+  head=creat(head,n);
+  char a[20];
+  scanf("%s",a);
+  chazhao(head,a);
+  return 0;
+}

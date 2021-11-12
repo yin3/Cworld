@@ -1,0 +1,41 @@
+/*输入格式：insert+空格+字符串+空格+成绩+回车
+           find+空格+字符串+回车
+  输出格式：成绩+换行
+  结束标志：end
+*/
+#include  <stdio.h>
+#include <string.h>
+struct stu{//设置结构体存储学生信息
+	char name[20];
+	int sc;//成绩
+}; 
+int main(){
+	struct stu s[100];//设置一个数组来存储信息
+	int i;
+	char ch[20];
+	char sh[20];
+	char zh[3][10]={"end","insert","find"};
+	while(scanf("%s",ch))//scanf  可以用空格来输入信息
+	{
+		if(strcmp(ch,zh[0])==0)
+		break;
+		else if(strcmp(ch,zh[1])==0)
+		scanf("%s%d",s[i].name,&s[i].sc);
+		else if(strcmp(ch,zh[2])==0)
+		{
+			int a;
+		  scanf("%s",sh);
+		 for(a=0;a<i;a++)
+		{
+		 if(strcmp(sh,s[a].name)==0)
+		 {
+		 	printf("%d\n",s[a].sc);
+		 	break;
+		 }
+		 if(a<0)
+		 printf("%d\n",-1);
+	     }
+		}
+		i++;
+	}
+}

@@ -1,0 +1,158 @@
+#include <stdio.h>
+
+#define N 15
+#define H 5
+char a[16][16];
+int x=1;
+
+void print(){
+	printf("*************************************\n");
+	printf("***      欢迎来到五子棋游戏      ***\n");
+	printf("***         1.进入游戏           ***\n");
+	printf("***         2.游戏介绍           ***\n");
+	printf("***         3.退出游戏           ***\n");
+	
+}
+
+void Run1(){
+	printf("*************************************\n");
+	printf("五子棋是全国智力运动项目之一，是一种两人对弈的纯策略型棋牌游戏\n");
+	printf("本案例采用两两对战形式，一方先在棋盘上连续下五子就判断赢了\n");
+	printf("棋牌大小是15*15，玩家1的棋子是0，玩家2的棋子是X。\n");
+	printf("帮助内容可以自行补充...\n"); 
+	printf("*************************************\n");
+	printf("请按1继续游戏，按0退出游戏\n"); 
+} 
+
+void Run2(){
+	
+	int i,j;
+	for(i=0;i<N;i++)
+	{
+		if(i==0)
+		{
+		for(j=0;j<=N;j++)
+		printf("%3d",j);
+	    }
+	    printf("\n");
+	    printf("%3d",i+1);
+	    for(j=0;j<N;j++){
+	    	if(x==1)
+	    	a[i][j]='-';
+	    	printf("%3c",a[i][j]);
+		}
+	}
+	printf("\n如果想直接结束游戏，请输入0 0\n");
+	x--;
+	Run3();
+}
+char YN1(char z,int i,int j){
+	
+int w=i,e=j;
+int count=0;
+for(w=i;w<15;w++)
+{
+    if(a[w][e]==z)
+	   count++;
+    else
+	 break;
+	}
+if(count==H)
+	return z;
+else
+	count=0;
+for(e=j;e<15;e++)
+{
+	if(a[w][e]==z)
+	  count++;
+	else
+	  break;	
+}
+if(count==H)
+	return z;
+else
+	count=0;
+for(w=i,e=j;w<15;w++,e++)
+{
+	if(a[w][e]==z)
+		count++;
+	else
+		break;
+}
+if(count==H)
+	return z;
+else
+	count=0;					
+return '-';			
+}
+char YN(){
+	int i,j,count=0;
+	char f;
+	for(i=0;i<15;i++){
+		for(j=0;j<15;j++){
+			if(a[i][j]!='-')
+			{
+				char z;
+				if(a[i][j]=='0')
+				  z=YN1('0',i,j);
+				else if(a[i][j]=='X')
+				  z=YN1('X',i,j);
+				if(z)
+				return z;
+			}
+		}
+	}
+}
+void Run3(){
+	int x,y;
+	int w=1;
+	while(1){
+		printf("轮到玩家%d：请落子",w); 
+		scanf("%d%d",&y,&x);
+		if(x==0||y==0)
+		  exit(0);
+		if(a[x-1][y-1]!='-')
+		{
+			printf("这个位置已经有子了，请重新落子...");
+			scanf("%d%d",&y,&x); 
+		}
+		if(w==1)
+		{
+			a[x-1][y-1]='0';
+			w+=1;
+		}
+		else
+		{
+			a[x-1][y-1]='X';
+			w--;
+		}
+		char f=YN();
+		if(f=='0')
+		{
+		printf("玩家1赢了");
+		return 0;
+	    }
+		else if(f=='X')
+		{
+		printf("玩家2赢了");
+		return 0;
+	}
+	if(w==1)
+	Run2();
+	}
+}
+int main(){
+	print();
+	int i;
+	while(scanf("%d",&i)!=0)
+	switch(i)
+	{
+		case 1: Run2();
+		break;
+		case 2: Run1();
+		break;
+		case 3: 
+		break; 
+	}
+	
+} 
